@@ -25,14 +25,10 @@ header h1 {
 /* 2. .grid-container 부분 수정 */
 .grid-container {
     display: grid;
-    grid-template-columns: 1fr 1fr; 
+    grid-template-columns: repeat(2, 640px); /* 600px 카드 + 20px 패딩 고려하여 고정 너비 지정 */
     gap: 30px; 
-    width: 100%;
-    max-width: 1300px; /* 600px짜리 카드 2개가 여유 있게 들어가도록 최대 너비를 살짝 늘려줍니다 */
-    
-    /* [핵심 추가] 그리드 자체와 내부 아이템들을 화면 중앙으로 정렬 */
-    justify-content: center; /* 그리드 틀 전체를 화면 중앙으로 */
-    justify-items: center;   /* 그리드 내부 카드들을 중앙으로 */
+    margin: 0 auto; /* [치트키] 위아래 여백은 0, 좌우 여백은 자동으로 똑같이 나눠 가져 중앙 정렬 */
+    width: max-content; /* 내용물 크기만큼만 딱 구역을 잡음 */
 }
 
 /* 심미성 추가: 각 과제를 담는 카드 디자인 (둥근 모서리, 그림자) */
