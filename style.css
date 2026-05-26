@@ -86,3 +86,89 @@ iframe {
         grid-template-columns: 1fr; /* 화면이 좁아지면 1열로 정렬 */
     }
 }
+
+/* style.css 맨 밑에 추가하세요 */
+
+/* 설명 토글 전체 스타일 */
+.project-desc {
+    width: 600px; /* iframe 가로폭과 일치시켜 깔끔하게 정렬 */
+    margin-top: 15px;
+    border: 1px solid #e5e5e7;
+    border-radius: 10px;
+    background-color: #fafafa;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+/* '작품 설명 보기' 버튼 스타일 */
+.project-desc summary {
+    padding: 12px 20px;
+    font-weight: 600;
+    color: #0071e3; /* 애플 스타일 블루 포인트 컬러 */
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+    list-style: none; /* 기본 화살표 숨기기 (브라우저 호환용) */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 요소를 클릭했을 때 배경색이 살짝 바뀌는 효과 */
+.project-desc summary:hover {
+    background-color: #f0f0f2;
+}
+
+/* 화살표 가상 요소 추가 */
+.project-desc summary::after {
+    content: '▼';
+    font-size: 0.8rem;
+    color: #86868b;
+    transition: transform 0.2s ease;
+}
+
+/* 열렸을 때 화살표 회전 효과 */
+.project-desc[open] summary::after {
+    transform: rotate(180deg);
+}
+
+/* 펼쳐지는 내부 컨텐츠 스타일 */
+.desc-content {
+    padding: 20px;
+    border-top: 1px solid #e5e5e7;
+    background-color: white;
+    text-align: left; /* 설명글은 좌측 정렬이 가독성에 좋습니다 */
+}
+
+.desc-content h3 {
+    font-size: 1rem;
+    margin-top: 15px;
+    margin-bottom: 8px;
+    color: #1d1d1f;
+}
+
+.desc-content h3:first-child {
+    margin-top: 0;
+}
+
+.desc-content ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.desc-content li {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #515154;
+    margin-bottom: 6px;
+}
+
+/* 코드 강조 스타일 */
+.desc-content code {
+    background-color: #f5f5f7;
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    color: #bf4800;
+}
