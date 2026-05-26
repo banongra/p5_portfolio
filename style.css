@@ -1,13 +1,14 @@
-/* 전체 배경 및 폰트 설정 */
+/* 1. body 부분 수정 */
 body {
     font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
-    background-color: #f5f5f7; /* 깔끔한 연회색 배경 */
+    background-color: #f5f5f7; 
     color: #333;
     margin: 0;
     padding: 30px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center;      /* 세로축 기준 중앙 정렬 */
+    justify-content: center;  /* 필요 시 가로축 내용 전체 중앙 정렬 */
 }
 
 header {
@@ -21,12 +22,17 @@ header h1 {
 }
 
 /* 핵심 요구사항: 2행 2열 그리드 레이아웃 */
+/* 2. .grid-container 부분 수정 */
 .grid-container {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* 2열로 나누기 */
-    gap: 30px; /* 각 과제 사이의 여백 */
+    grid-template-columns: 1fr 1fr; 
+    gap: 30px; 
     width: 100%;
-    max-width: 1100px;
+    max-width: 1300px; /* 600px짜리 카드 2개가 여유 있게 들어가도록 최대 너비를 살짝 늘려줍니다 */
+    
+    /* [핵심 추가] 그리드 자체와 내부 아이템들을 화면 중앙으로 정렬 */
+    justify-content: center; /* 그리드 틀 전체를 화면 중앙으로 */
+    justify-items: center;   /* 그리드 내부 카드들을 중앙으로 */
 }
 
 /* 심미성 추가: 각 과제를 담는 카드 디자인 (둥근 모서리, 그림자) */
