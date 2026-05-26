@@ -53,10 +53,34 @@ header h1 {
 }
 
 /* 캔버스가 표시되는 iframe 스타일 */
+.project-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease;
+    
+    /* 카드 안의 제목과 iframe을 세로로 정렬하고 가운데로 맞춤 */
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
+/* 캔버스(600x400) 비율에 완벽하게 맞추는 iframe 설정 */
 iframe {
-    width: 100%;
-    height: 400px; /* 캔버스 높이에 맞춰 이 숫자를 조절하세요 (예: 400px, 500px) */
+    width: 600px;  /* 캔버스 가로 크기에 고정 */
+    height: 400px; /* 캔버스 세로 크기에 고정 */
     border: none;
     border-radius: 8px;
     background-color: #fafafa;
+    
+    /* 혹시 모를 내부 스크롤바 숨기기 */
+    overflow: hidden; 
+}
+
+/* 맥북이나 모니터 화면이 작을 때 iframe이 옆으로 터져나가지 않도록 방지 */
+@media (max-width: 1300px) {
+    .grid-container {
+        grid-template-columns: 1fr; /* 화면이 좁아지면 1열로 정렬 */
+    }
 }
