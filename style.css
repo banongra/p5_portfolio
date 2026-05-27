@@ -422,3 +422,28 @@ body.dark-mode .curator-note strong {
         width: 650px;
     }
 }
+
+.art-header-info {
+    position: relative;
+}
+
+.art-header-info::after {
+    content: 'view full' !important;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+
+    font-size: 0.9rem !important;
+    color: #1e54d1 !important;
+
+    opacity: 0;
+    display: inline-block !important;
+
+    transition: opacity 0.3s ease, transform 0.3s ease !important;
+    transform: translateX(10px);
+}
+
+.project-card:hover .art-header-info::after {
+    opacity: 0.7 !important;
+    transform: translateX(0);
+}
