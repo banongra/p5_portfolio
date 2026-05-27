@@ -135,9 +135,9 @@ iframe {
 /* 기준점이었던 바로 그 큐레이터 코멘터리 버튼 속성 고수 */
 .project-desc summary {
     font-family: 'Poppins', sans-serif !important;
-    padding: 15px 0 !important;
-    font-size: 0.88rem !important;
-    font-weight: 700 !important;
+    padding: 12px 0 !important;
+    font-size: 0.78rem !important;
+    font-weight: 500 !important;
     color: #86868b !important;
     letter-spacing: 1px;
     background-color: transparent !important;
@@ -171,9 +171,12 @@ iframe {
 }
 
 .art-subtitle {
+    display: block;
+    width: 100%;
+
     font-family: 'Poppins', 'Apple SD Gothic Neo', sans-serif !important;
-    font-size: 1.15rem !important;
-    font-weight: 700 !important;
+    font-size: 2.7rem !important;
+    font-weight: 200 !important;
     color: #1d1d1f !important;
     line-height: 1.5;
     margin-bottom: 35px !important;
