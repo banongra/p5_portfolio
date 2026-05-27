@@ -1,10 +1,8 @@
-
+/* ==================== 1. 글로벌 스타일 및 배경 ==================== */
 body {
-    font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
-    
-    /* 위쪽은 차분한 안개 낀 베이지 톤, 아래쪽은 깔끔한 연회색으로 떨어지는 세로 그라데이션 */
+    font-family: 'Poppins', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+    /* 위쪽은 차분한 안개 낀 베이지 톤, 아래쪽은 깔끔한 연회색 세로 그라데이션 */
     background: linear-gradient(to bottom, #e8e4dc 0%, #f5f5f7 400px, #f5f5f7 100%);
-    
     color: #333;
     margin: 0;
     padding: 50px 20px;
@@ -12,88 +10,275 @@ body {
     flex-direction: column;
     align-items: center;
 }
-header {
+
+/* ==================== 2. 상단 미술관 헤더 구역 ==================== */
+.museum-header {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
 }
 
-header h1 {
-    margin-bottom: 10px;
+.exhibition-category {
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 800 !important;
+    font-size: 0.75rem !important;
+    letter-spacing: 3px !important;
+    color: #1d1d1f !important;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.museum-header h1 {
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 2.6rem !important;
+    margin: 10px 0 8px 0;
     color: #1a1a1a;
 }
 
-/* 핵심 요구사항: 2행 2열 그리드 레이아웃 */
-.grid-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* 2열로 나누기 */
-    gap: 30px; /* 각 과제 사이의 여백 */
-    width: 100%;
-    max-width: 1100px;
+.exhibition-sub {
+    font-size: 1rem;
+    color: #515154;
+    margin: 0;
 }
 
-/* 심미성 추가: 각 과제를 담는 카드 디자인 (둥근 모서리, 그림자) */
-/* style.css 파일의 카드 관련 설정을 아래 코드로 변경하세요 */
+/* ==================== 3. 2행 2열 그리드 레이아웃 ==================== */
+.grid-container {
+    display: grid;
+    grid-template-columns: 650px 650px; /* 고정 크기로 캔버스가 절대 안 잘리게 틀 확보 */
+    gap: 40px; 
+    width: 1340px;
+    margin: 0 auto;
+    align-items: start; /* 옆 카드가 열려도 독립적인 높이 유지 */
+    
+    /* 처음 사이트 로드 시 부드럽게 솟아오르는 애니메이션 */
+    animation: fadeUpExhibition 1s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
 
-/* 개별 작품 카드 기본 상태 */
+@keyframes fadeUpExhibition {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==================== 4. 개별 작품 카드 디자인 (짤림 방지 보정) ==================== */
 .project-card {
     background-color: #ffffff;
-    padding: 20px;
-    border-radius: 16px; /* 둥근 모서리 */
+    padding: 24px 20px; /* 좌우 패딩을 살짝 줄여 600px 내부 캔버스 공간 100% 확보 */
+    border-radius: 16px;
     border: none;
     display: flex;
     flex-direction: column;
     align-items: center; 
-    
-    /* [기본 그림자] 평소에는 은은하고 차분한 음영 */
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04); 
-    
-    /* [핵심] 마우스 아웃 시에도 0.3초 동안 매끄럽고 부드럽게 원래 크기로 돌아오도록 설정 */
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
-    
-    /* 마우스 커서가 올라가면 클릭할 수 있는 포인터로 변경 */
     cursor: pointer; 
 }
 
-/* [핵심 요청] 마우스 커서가 올라갔을 때(Hover)의 역동적인 효과 */
+/* 마우스 커서가 올라갔을 때(Hover)의 확대 및 부유 효과 */
 .project-card:hover {
-    /* 1. 원래 크기보다 2.5% 확대(scale)하면서, 위쪽(Y축)으로 8px 이동(translate) */
     transform: translateY(-8px) scale(1.025);
-    
-    /* 2. 카드가 공중에 붕 떠오른 느낌을 주도록 그림자를 더 넓고 짙게 확산 */
     box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12);
-    
-    /* 3. 테두리에 아주 미세한 포인트를 주어 세련미 추가 (선택 사항) */
-    background-color: #ffffff; 
 }
 
-.project-card h2 {
-    font-size: 1.2rem;
-    margin-top: 0;
+/* 카드 상단 타이틀 영역 */
+.art-header-info {
+    width: 600px; /* 캔버스 크기와 정확히 일치시켜 레이아웃 칼정렬 */
+    text-align: left;
     margin-bottom: 15px;
-    text-align: center;
-    border-bottom: 2px solid #eee;
+    border-bottom: 1px solid #eee;
     padding-bottom: 10px;
+    position: relative;
 }
 
-/* 캔버스가 표시되는 iframe 스타일 */
+.art-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0 0 5px 0;
+    color: #1d1d1f;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* 작품 설명 서브 타이틀 규격 */
+.art-spec {
+    font-size: 0.85rem;
+    color: #86868b;
+    margin: 0;
+}
+
+/* 카드 위에 마우스를 올렸을 때 나타나는 웅장한 명령어 힌트 */
+.art-header-info::after {
+    font-family: 'Poppins', sans-serif !important;
+    content: '>> VIEW FULL' !important;
+    position: absolute;
+    right: 0;
+    top: 6px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #0071e3;
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    transform: translateX(-5px);
+}
+
+.project-card:hover .art-header-info::after {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* p5.js 디지털 액자 캔버스 (우측 절대 안 잘리도록 박스 픽스) */
 iframe {
-    width: 100%;
-    height: 400px; /* 캔버스 높이에 맞춰 이 숫자를 조절하세요 (예: 400px, 500px) */
+    width: 600px;
+    height: 400px; 
     border: none;
     border-radius: 8px;
     background-color: #fafafa;
+    overflow: hidden;
 }
 
-/* style.css 맨 밑에 추가하세요 */
+/* ==================== 5. 프리미엄 작품 해설 파트 ==================== */
+.project-desc {
+    width: 600px; /* 해설 박스 폭도 600px로 정교하게 통일 */
+    border: none !important;
+    border-top: 1px solid #e5e5e7 !important;
+    background-color: transparent !important;
+    margin-top: 25px !important;
+}
 
-/* 전체 화면을 어둡게 덮는 암전 효과 레이어 */
+.project-desc summary {
+    padding: 15px 0 !important;
+    font-size: 0.88rem !important;
+    font-weight: 700 !important;
+    color: #86868b !important;
+    letter-spacing: 1px;
+    background-color: transparent !important;
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: color 0.2s ease;
+}
+
+.project-desc summary:hover {
+    color: #1d1d1f !important;
+}
+
+.project-desc summary::after {
+    content: '▼';
+    font-size: 0.75rem;
+    color: #86868b;
+}
+
+.project-desc[open] summary::after {
+    content: '▲';
+}
+
+.desc-content {
+    padding: 30px 5px 10px 5px !important;
+    border-top: 1px solid #f5f5f7 !important;
+}
+
+/* 도록 감성의 부제목 디자인 */
+.art-subtitle {
+    font-family: 'Apple SD Gothic Neo', sans-serif !important;
+    font-size: 1.15rem !important;
+    font-weight: 300 !important;
+    color: #1d1d1f !important;
+    line-height: 1.5;
+    margin-bottom: 35px !important;
+    position: relative;
+    padding-bottom: 15px;
+    text-align: center;
+}
+
+.art-subtitle::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 1.5px;
+    background-color: #1d1d1f;
+}
+
+.notation-style h3 {
+    font-family: 'Poppins', 'Apple SD Gothic Neo', sans-serif !important;
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    color: #1d1d1f !important;
+    margin-top: 35px !important;
+    margin-bottom: 10px !important;
+    letter-spacing: -0.3px;
+}
+
+.notation-style p {
+    font-family: 'Apple SD Gothic Neo', sans-serif !important;
+    font-size: 0.9rem !important;
+    line-height: 1.8 !important; /* 도록의 여백미 형성 */
+    color: #515154 !important;
+    text-align: justify !important; /* 좌우 정렬 칼같이 맞춤 */
+    margin-bottom: 20px !important;
+}
+
+.notation-style p strong {
+    color: #1d1d1f !important;
+    font-weight: 700;
+}
+
+/* mouseX, lerpColor 등 코드 테크니컬 라벨 */
+.desc-content code {
+    background-color: #f5f5f7 !important;
+    color: #0071e3 !important;
+    padding: 3px 6px !important;
+    border-radius: 4px !important;
+    font-size: 0.82rem !important;
+    font-family: 'SF Pro Text', monospace !important;
+    font-weight: 500;
+}
+
+/* [수정 완역] 큐레이터 비평 박스 전용 메인 스트리트 폰트 매칭 */
+.curator-note {
+    margin-top: 40px !important;
+    padding: 20px 25px !important;
+    background-color: #fafafa !important;
+    border-left: 3px solid #86868b !important; /* 왼쪽에 단단한 시그니처 바 */
+    border-radius: 0 8px 8px 0 !important;
+    
+    /* 폰트를 튀지 않고 힙한 전체 서체 패밀리로 완벽 강제 구속 */
+    font-family: 'Poppins', 'Apple SD Gothic Neo', sans-serif !important;
+    font-size: 0.85rem !important;
+    line-height: 1.75 !important;
+    color: #515154 !important;
+    text-align: justify;
+}
+
+.curator-note strong {
+    font-family: 'Poppins', 'Apple SD Gothic Neo', sans-serif !important;
+    font-size: 0.9rem;
+    color: #1d1d1f !important;
+    display: inline-block;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+}
+
+/* ==================== 6. 전체 화면 몰입형 모달 극장 ==================== */
 .museum-modal {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(28, 26, 23, 0.85); /* 묵직한 전시장 암전 톤 */
+    background-color: rgba(28, 26, 23, 0.85); 
     z-index: 9999;
     display: flex;
     justify-content: center;
@@ -103,13 +288,11 @@ iframe {
     transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* 활성화 상태 */
 .museum-modal.show {
     opacity: 1;
     pointer-events: auto;
 }
 
-/* 화면을 꽉 채우는 대형 흰색 액자 */
 .modal-content {
     background-color: #ffffff;
     padding: 40px;
@@ -119,8 +302,6 @@ iframe {
     display: flex;
     flex-direction: column;
     align-items: center;
-    
-    /* 등장할 때 밑에서 위로 부드럽게 솟아오르는 효과 */
     transform: translateY(30px) scale(0.95);
     transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
@@ -129,7 +310,6 @@ iframe {
     transform: translateY(0) scale(1);
 }
 
-/* 닫기 버튼 (X) */
 .close-btn {
     position: absolute;
     top: 20px;
@@ -144,262 +324,96 @@ iframe {
     color: #1d1d1f;
 }
 
-/* 전체 화면 안에서의 대형 모니터 맞춤형 캔버스 크기 */
 .modal-content iframe {
-    width: 850px;  /* 대형 스크린에 맞춰 확대된 크기 설정 */
-    height: 566px; /* 3:2 비율 유지 */
+    width: 850px;  
+    height: 566px; 
     border-radius: 12px;
     border: 1px solid #e5e5e7;
 }
 
-/* 모달 전용 상단 타이틀 너비 보정 */
 .modal-content .art-header-info {
     width: 850px;
     margin-bottom: 20px;
 }
 
-/* style.css 맨 아래에 그냥 붙여넣으세요 */
-
-/* 사이트 로드 시 그리드 컨텐츠 전체가 부드럽게 등장 */
-.grid-container {
-    animation: fadeUpExhibition 1s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
-}
-
-@keyframes fadeUpExhibition {
-    from {
-        opacity: 0;
-        transform: translateY(20px); /* 아래에서 20px 밑에서 출발 */
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* style.css 맨 아래에 복사해서 붙여넣으세요! */
-
-/* 1. 작품 해설(details) 상자 자체를 더 슬림하고 모던하게 */
-.project-desc {
-    border: none !important; /* 투박한 테두리선 제거 */
-    border-top: 1px solid #e5e5e7 !important; /* 상단에만 얇은 경계선 */
-    background-color: transparent !important; /* 회색 배경을 투명하게 하여 카드와 일치 */
-    margin-top: 25px !important;
-}
-
-/* 2. 토글 버튼(summary) 디자인 고급화 */
-.project-desc summary {
-    padding: 15px 0 !important; /* 좌우 여백을 없애고 텍스트 라인과 맞춤 */
-    font-size: 0.88rem !important;
-    font-weight: 700 !important;
-    color: #86868b !important; /* 튀는 블루 대신 차분한 갤러리 그레이 */
-    letter-spacing: 1px;
-    background-color: transparent !important;
-    transition: color 0.2s ease;
-}
-
-.project-desc summary:hover {
-    color: #1d1d1f !important; /* 마우스 올리면 선명해지도록 */
-    background-color: transparent !important;
-}
-
-/* 3. 펼쳐지는 본문 영역의 여백과 폰트 가독성 극대화 */
-.desc-content {
-    padding: 30px 5px 10px 5px !important; /* 내부 여백을 넓혀 시각적 답답함 해소 */
-    border-top: 1px solid #f5f5f7 !important;
-}
-
-/* 4. 부제목("구상과 추상의 경계...") 디자인 */
-.art-subtitle {
-    font-family: 'Apple SD Gothic Neo', sans-serif;
-    font-size: 1.15rem !important;
-    font-weight: 300 !important; /* 얇고 감성적인 서체 두께 */
-    color: #1d1d1f !important;
-    line-height: 1.5;
-    margin-bottom: 35px !important;
-    position: relative;
-    padding-bottom: 15px;
-}
-
-/* 부제목 아래에 세련된 포인트 미니 하이라이트 선 추가 */
-.art-subtitle::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 30px;
-    height: 1.5px;
-    background-color: #1d1d1f;
-}
-
-/* 5. 1, 2, 3 소제목 스타일 고도화 */
-.notation-style h3 {
-    font-size: 0.95rem !important;
-    font-weight: 700 !important;
-    color: #1d1d1f !important;
-    margin-top: 35px !important;
-    margin-bottom: 10px !important;
-    letter-spacing: -0.3px;
-}
-
-/* 6. 설명 줄글 스타일 (가장 중요) */
-.notation-style p {
-    font-size: 0.9rem !important;
-    line-height: 1.8 !important; /* 행간을 넓혀 도록 특유의 여백미 생성 */
-    color: #515154 !important;
-    text-align: justify !important; /* 좌우 정렬을 칼같이 맞춰 깔끔하게 배치 */
-    margin-bottom: 20px !important;
-}
-
-/* 줄글 안의 강조 항목(• 염색을 통한...) 선명하게 강조 */
-.notation-style p strong {
-    color: #1d1d1f !important;
-    font-weight: 700;
-}
-
-/* 7. 코드 블록(mouseX 등)을 테크니컬하고 감각적인 라벨로 변경 */
-.desc-content code {
-    background-color: #f5f5f7 !important;
-    color: #0071e3 !important; /* 주황색 대신 세련된 포인트 블루 */
-    padding: 3px 6px !important;
-    border-radius: 4px !important;
-    font-size: 0.82rem !important;
-    font-family: 'SF Pro Text', monospace !important;
-    font-weight: 500;
-}
-
-/* 8. 큐레이터 노트(Curator's Note) 블록을 진짜 액자처럼 격상 */
-.curator-note {
-    margin: 20px 0 0 0;
-    padding: 15px;
-    background-color: #f5f5f7; 
-    border-radius: 8px;
-    font-size: 0.88rem;
-    line-height: 1.6;
-    color: #515154;
-}
-
-.exhibition-category {
-    font-family: 'Poppins', sans-serif !important;
-    font-weight: 800 !important;
-    font-size: 0.75rem !important;
-    letter-spacing: 3px !important;
-    color: #1d1d1f !important;
-}
-.museum-header h1 {
-    font-family: 'Poppins', sans-serif !important;
-    font-weight: 700 !important;
-    font-size: 2.6rem !important;
-}
-.art-title::before {
-    font-family: 'Poppins', sans-serif !important;
-    font-weight: 700 !important;
-    color: #86868b !important;
-}
-.art-header-info::after {
-    font-family: 'Poppins', sans-serif !important;
-    content: '>> VIEW FULL' !important;
-}
-
-/* style.css 맨 아래에 이어서 붙여넣으세요! */
-
 /* ==================== 7. 다크모드 버튼 및 토글 스타일 ==================== */
-/* 우측 상단 플로팅 버튼 배치 */
 .theme-toggle-container {
-    position: absolute;
-    top: 30px;
-    right: 40px;
-    z-index: 1000;
+    position: fixed !important;
+    top: 25px !important;
+    right: 30px !important;
+    z-index: 9999999 !important; 
+    display: block !important;
 }
 
 #themeToggleBtn {
-    font-family: 'Poppins', sans-serif;
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    padding: 10px 18px;
-    border-radius: 30px;
-    border: 1px solid #1d1d1f;
-    background-color: #1d1d1f;
-    color: #ffffff;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 0.8rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 1px !important;
+    padding: 12px 22px !important;
+    border-radius: 30px !important;
+    border: 1px solid #1d1d1f !important;
+    background-color: #1d1d1f !important;
+    color: #ffffff !important;
+    cursor: pointer !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+    transition: all 0.4s ease !important;
 }
 
 #themeToggleBtn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    transform: translateY(-3px) scale(1.05) !important;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25) !important;
 }
 
-/* ==================== 8. [★대반전★] 다크모드 활성화 시 색상 데이터셋 ==================== */
-/* body에 .dark-mode 클래스가 붙으면 아래 전시장 소등 효과가 매끄럽게 발동합니다 */
+/* ==================== 8. 다크모드 활성화 시 색상 데이터셋 ==================== */
 body, body.dark-mode {
-    transition: background 0.5s ease, color 0.5s ease; /* 조명이 서서히 꺼지는 효과 */
+    transition: background 0.5s ease-in-out, color 0.5s ease-in-out !important;
 }
 
 body.dark-mode {
-    background: #111112 !important; /* 완전한 전시장 암전 블랙 배경 */
+    background: #111112 !important; 
     color: #f5f5f7 !important;
 }
 
-/* 다크모드일 때 버튼 스스로 디자인 변경 */
 body.dark-mode #themeToggleBtn {
-    background-color: #ffffff;
-    color: #1d1d1f;
-    border: 1px solid #ffffff;
-}
-
-/* 상단 텍스트 색상 대칭 반전 */
-body.dark-mode .museum-header h1 {
-    color: #ffffff !important;
-}
-body.dark-mode .exhibition-sub {
-    color: #aeaeaf !important;
-}
-
-/* 작품 전시대 카드 다크화 */
-body.dark-mode .project-card {
-    background-color: #1c1c1e !important; /* 시크한 흑연색 카드 구조 */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important; /* 그림자를 대형 암전용으로 변경 */
-}
-
-body.dark-mode .art-title {
-    color: #ffffff !important;
-}
-body.dark-mode .art-header-info {
-    border-bottom: 1px solid #2c2c2e !important;
-}
-
-/* 아코디언 평론 설명 구역 색상 변경 */
-body.dark-mode .project-desc {
-    border-top: 1px solid #2c2c2e !important;
-}
-body.dark-mode .desc-content {
-    border-top: 1px solid #2c2c2e !important;
-}
-body.dark-mode .art-subtitle {
-    color: #ffffff !important;
-}
-body.dark-mode .art-subtitle::after {
     background-color: #ffffff !important;
-}
-body.dark-mode .notation-style h3 {
-    color: #ffffff !important;
-}
-body.dark-mode .notation-style p {
-    color: #aeaeaf !important; /* 가독성을 위한 부드러운 은회색 */
-}
-body.dark-mode .notation-style p strong {
-    color: #ffffff !important;
+    color: #1d1d1f !important;
+    border: 1px solid #ffffff !important;
 }
 
-/* 큐레이터 비평 박스 변경 */
+body.dark-mode .museum-header h1 { color: #ffffff !important; }
+body.dark-mode .exhibition-sub { color: #aeaeaf !important; }
+body.dark-mode .art-title { color: #ffffff !important; }
+body.dark-mode .art-subtitle { color: #ffffff !important; }
+body.dark-mode .art-subtitle::after { background-color: #ffffff !important; }
+body.dark-mode .notation-style h3 { color: #ffffff !important; }
+
+body.dark-mode .project-card {
+    background-color: #1c1c1e !important;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6) !important;
+}
+body.dark-mode .art-header-info { border-bottom: 1px solid #2c2c2e !important; }
+
+body.dark-mode .project-desc { border-top: 1px solid #2c2c2e !important; }
+body.dark-mode .desc-content { border-top: 1px solid #2c2c2e !important; }
+body.dark-mode .notation-style p { color: #aeaeaf !important; }
+body.dark-mode .notation-style p strong { color: #ffffff !important; }
+
 body.dark-mode .curator-note {
     background-color: #2c2c2e !important;
-    border-left: 3px solid #ff9500 !important; /* 다크모드에서는 오렌지 포인트 라인으로 반전 */
+    border-left: 3px solid #0071e3 !important; /* 다크모드 전용 세련된 블루 바 */
     color: #e5e5e7 !important;
+    font-family: 'Poppins', 'Apple SD Gothic Neo', sans-serif !important;
 }
-body.dark-mode .curator-note strong {
+body.dark-mode .curator-note strong { 
     color: #ffffff !important;
+    font-family: 'Poppins', 'Apple SD Gothic Neo', sans-serif !important;
+}
+
+/* 좁은 해상도 화면 1열 격자 대응 */
+@media (max-width: 1360px) {
+    .grid-container {
+        grid-template-columns: 650px;
+        width: 650px;
+    }
 }
