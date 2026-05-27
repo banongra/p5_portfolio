@@ -240,7 +240,11 @@ iframe {
     font-size: 0.85rem !important;
     line-height: 1.75 !important;
     color: #515154 !important;
-    text-align: justify;
+    
+    /* [수정] 양쪽 정렬을 하되, 빈칸이 크게 안 생기도록 글자 단위 정렬 추가 */
+    text-align: justify !important; 
+    text-justify: inter-character !important; 
+    word-break: break-all !important; /* 단어가 줄바꿈될 때 쪼개지도록 처리 */
 }
 
 .curator-note strong {
@@ -389,10 +393,20 @@ body.dark-mode .notation-style p { color: #aeaeaf !important; }
 body.dark-mode .notation-style p strong { color: #ffffff !important; }
 
 body.dark-mode .curator-note {
-    background-color: #2c2c2e !important;
-    border-left: 3px solid #0071e3 !important; 
-    color: #e5e5e7 !important;
-    font-family: 'Poppins', sans-serif !important;
+    margin-top: 40px !important;
+    padding: 20px 25px !important;
+    background-color: #fafafa !important;
+    border-left: 3px solid #86868b !important; 
+    border-radius: 0 8px 8px 0 !important;
+    font-family: 'Poppins', 'Apple SD Gothic Neo', sans-serif !important;
+    font-size: 0.85rem !important;
+    line-height: 1.75 !important;
+    color: #515154 !important;
+    
+    /* [수정] 양쪽 정렬을 하되, 빈칸이 크게 안 생기도록 글자 단위 정렬 추가 */
+    text-align: justify !important; 
+    text-justify: inter-character !important; 
+    word-break: break-all !important; /* 단어가 줄바꿈될 때 쪼개지도록 처리 */
 }
 body.dark-mode .curator-note strong { 
     color: #ffffff !important;
