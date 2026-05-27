@@ -3,53 +3,283 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>p5.js 과제 포트폴리오</title>
+    <title>p5.js Media Art Exhibition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* 버튼 위치 및 스타일 디자인 고정 */
+        .theme-toggle-container {
+            position: fixed !important;
+            top: 25px !important;
+            right: 30px !important;
+            z-index: 9999999 !important; 
+            display: block !important;
+        }
+
+        #themeToggleBtn {
+            font-family: 'Poppins', sans-serif !important;
+            font-size: 0.8rem !important;
+            font-weight: 700 !important;
+            letter-spacing: 1px !important;
+            padding: 12px 22px !important;
+            border-radius: 30px !important;
+            border: 1px solid #1d1d1f !important;
+            background-color: #1d1d1f !important;
+            color: #ffffff !important;
+            cursor: pointer !important;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+            transition: all 0.4s ease !important;
+        }
+
+        #themeToggleBtn:hover {
+            transform: translateY(-3px) scale(1.05) !important;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25) !important;
+        }
+
+        /* ==================== [★핵심] 다크모드 발동 시 색상 강제 제어 시스템 ==================== */
+        body, body.dark-mode {
+            transition: background 0.5s ease-in-out, color 0.5s ease-in-out !important;
+        }
+
+        /* 1. 전체 배경 암전 */
+        body.dark-mode {
+            background: #111112 !important; 
+            color: #f5f5f7 !important;
+        }
+
+        /* 2. 다크모드 시 버튼 색상 반전 */
+        body.dark-mode #themeToggleBtn {
+            background-color: #ffffff !important;
+            color: #1d1d1f !important;
+            border: 1px solid #ffffff !important;
+        }
+
+        /* 3. 대제목 및 소제목 색상 반전 */
+        body.dark-mode .museum-header h1 { color: #ffffff !important; }
+        body.dark-mode .exhibition-sub { color: #aeaeaf !important; }
+        body.dark-mode .art-title { color: #ffffff !important; }
+        body.dark-mode .art-subtitle { color: #ffffff !important; }
+        body.dark-mode .art-subtitle::after { background-color: #ffffff !important; }
+        body.dark-mode .notation-style h3 { color: #ffffff !important; }
+
+        /* 4. 작품 카드 짙은 흑연색으로 변환 */
+        body.dark-mode .project-card {
+            background-color: #1c1c1e !important;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6) !important;
+        }
+        body.dark-mode .art-header-info { border-bottom: 1px solid #2c2c2e !important; }
+
+        /* 5. 아코디언 설명문 내부 다크화 */
+        body.dark-mode .project-desc { border-top: 1px solid #2c2c2e !important; }
+        body.dark-mode .desc-content { border-top: 1px solid #2c2c2e !important; }
+        body.dark-mode .notation-style p { color: #aeaeaf !important; }
+        body.dark-mode .notation-style p strong { color: #ffffff !important; }
+
+        /* 6. 평론 박스 다크 웜그레이 테마 변경 */
+        body.dark-mode .curator-note {
+            background-color: #2c2c2e !important;
+            border-left: 3px solid #0071e3 !important; /* 다크모드 전용 세련된 블루 바 */
+            color: #e5e5e7 !important;
+        }
+        body.dark-mode .curator-note strong { color: #ffffff !important; }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>나의 p5.js 작품 모음</h1>
-        <p>정적(Static) 작품과 동적(Dynamic) 작품을 2x2 배열로 구성했습니다.</p>
+
+    <div class="theme-toggle-container">
+        <button id="themeToggleBtn" onclick="toggleDarkMode()">🌓 LIGHTS OUT</button>
+    </div>
+
+    <header class="museum-header">
+        <span class="exhibition-category">2026 jung 걸작전</span>
+        <h1>실존과 시공간의 변이</h1>
+        <p class="exhibition-sub">코딩 매체를 통한 정적 조형과 디지털 키네티즘의 탐구</p>
+        <div class="header-line"></div>
     </header>
     
     <main class="grid-container">
-        <div class="project-card">
-            <h2>과제 1 (정적)</h2>
-            <iframe src="task1/index.html" title="과제 1"></iframe>
-        </div>
         
         <div class="project-card">
-            <h2>과제 4 (동적)</h2>
-            <iframe src="task4/index.html" title="과제 4"></iframe>
-        </div>
-        
-        <div class="project-card">
-            <h2>과제 2 (정적)</h2>
-            <iframe src="task2/index.html" title="과제 2"></iframe>
-        </div>
-        
-<div class="project-card">
-    <h2>과제 3 (동적)</h2>
-    <iframe src="task3/index.html" title="과제 3"></iframe>
-    
-    <details class="project-desc">
-        <summary>💡 작품 설명 보기</summary>
-        <div class="desc-content">
-            <h3>⌨️ Keyboard 기능</h3>
-            <ul>
-                <li><strong>방향키:</strong> 머리색 변경이 가능합니다. 다양한 색의 머리색을 체험해 볼 수 있으며, <code>스페이스바</code>를 누르면 원래 색으로 복구됩니다.</li>
-                <li><strong>A 키:</strong> 누르면 눈이 하트로 변합니다. 한글 상태 모드에서도 작동하도록 'A', 'a', 'ㅁ' 입력 시 모두 실행되도록 예외 처리를 반영했습니다.</li>
-                <li><strong>M 키:</strong> 누르면 입이 작아지며 큰 하트를 보냅니다. ('M', 'm', 'ㅡ' 모두 작동)</li>
-            </ul>
+            <div class="art-header-info">
+                <h2 class="art-title">이스케이프 (Escape : 경계의 바다)</h2>
+                <p class="art-spec">디지털 캔버스 위 코딩 (p5.js) / 600×400 px / 정적 조형</p>
+            </div>
             
-            <h3>🖱️ Mouse 기능</h3>
-            <ul>
-                <li><strong>클릭:</strong> 화면을 클릭하면 눈을 감습니다. (앞선 눈 하트 조건문 뒤에 <code>else if</code>를 사용하여 구현)</li>
-                <li><strong>움직임:</strong> 마우스를 움직이면 눈동자가 마우스 포인터를 따라 반응하며 움직입니다.</li>
-            </ul>
+            <iframe src="task1/index.html" title="과제 1"></iframe>
+            
+            <details class="project-desc">
+                <summary>Curator's Commentary (작품 해설)</summary>
+                <div class="desc-content notation-style">
+                    <p class="art-subtitle">"구상과 추상의 경계: 시공간을 가르는 파편적 바다"</p>
+                    
+                    <h3>1. 낭만적 풍경의 해체와 기하학적 재구성</h3>
+                    <p>작가는 600×400의 디지털 화면을 과감하게 수평 분할하며 자연의 풍경을 자신만의 시각적 언어로 재해석한다. 상단의 붉은 하늘(#FF8B94)을 가로지르는 비대칭 강렬한 면(#D25353)은 노을빛의 파편이자 공간을 뒤흔드는 시각적 충격을 준다. 화면의 중심을 받치는 바다는 '먼바다'의 짙은 네이비(#264653)에서 '가까운 바다'의 청록빛(#2A9D8F, #79C9C5)으로 이어지며 점증적인 깊이감을 획득한다. 그 경계에서 일렁이는 파도는 수학적 곡선인 아크(arc)의 반복을 통해 파도의 리듬감을 미니멀하게 압축하여 보여준다.</p>
+                    
+                    <h3>2. 대비와 균형을 이루는 서사적 오브제</h3>
+                    <p>화면 중앙을 유유히 가로지르는 돛단배는 이 작품의 서사적 중심축이다. 수직으로 단단하게 뻗은 돛대(#3D405B)를 중심으로 좌우에 배치된 돛들은 차가운 녹색조(#81B29A)와 뜨거운 오렌지조(#E07A5F)의 보색 대비를 이룬다. 이는 잔잔한 바다 위를 항해하는 인간의 내면적 갈등과 열정을 동시에 대변하는 듯하다. 하늘을 부유하는 갈매기들의 선형적 존재감은 묵직한 배의 질감(#3D2C24)과 대비를 이루며, 화면 전체에 공감각적인 개방감을 불어넣는다.</p>
+                    
+                    <h3>3. 추상적 도상(Icon)을 통한 현실의 초월</h3>
+                    <p>이 작품이 단순한 '바다 풍경화'를 넘어 현대적 회화성을 획득하는 결정적인 계기는 화면 하단부에 배치된 의도적인 추상 도형들이다. 물결 사이에 불쑥 솟아오른 주황빛 원(#F4A261)과 화면 우측을 침범하는 사각형과 다각형들의 배치는 자연주의적 원근법을 단숨에 깨뜨린다. 작가가 의도적으로 집어넣은 이 '추상주의적 파편'들은 가상의 캔버스 공간에 긴장감을 부여하는 장치이다. 우측 하단의 작은 원들(#EDF2F4)은 마치 바다의 물방울 같기도, 혹은 디지털 세계의 노이즈 같기도 한 중의적 유희를 던지며 관객에게 신선한 시각적 질문을 던진다.</p>
+                    
+                    <blockquote class="curator-note">
+                        <strong>큐레이터 노트 (Curator's Note)</strong><br>
+                        본 작품은 자연의 서정적인 풍경(바다, 배, 갈매기, 태양) 위에 차가운 기하학적 추상을 과감하고 매끄러운 솜씨로 병치시킨 수작입니다. 풍경의 본질을 흐리지 않으면서도, 현대 미술의 추상적 유희를 화면 하단에 위트 있게 배치함으로써 익숙한 바다를 전혀 새로운 '사유의 공간'으로 탈바꿈시키고 있습니다.
+                    </blockquote>
+                </div>
+            </details>
         </div>
-    </details>
-</div>
+        
+        <div class="project-card">
+            <div class="art-header-info">
+                <h2 class="art-title">이스케이프 II (Escape II : 변이하는 시공간)</h2>
+                <p class="art-spec">디지털 캔버스 위 인터랙티브 코딩 (p5.js) / 600×400 px / 동적 애니메이션</p>
+            </div>
+            
+            <iframe src="task4/index.html" title="과제 4"></iframe>
+            
+            <details class="project-desc">
+                <summary>Curator's Commentary (작품 해설)</summary>
+                <div class="desc-content notation-style">
+                    <p class="art-subtitle">"시간의 유동성과 디지털 키네티즘(Kineticism): 영원히 순환하는 경계"</p>
+                    
+                    <h3>1. 시간의 선형성을 해체하는 매끄러운 색채 변이</h3>
+                    <p>이 작품은 고정된 캔버스의 한계를 넘어, 미디어 아트 특유의 시간 가변성을 적극적으로 수용한다. 상단의 하늘 공간은 <code>millis()</code> 함수와 <code>lerpColor()</code> 알고리즘을 통해 3초마다 무작위적인 새로운 색조로 끊임없이 변이한다. 과거와 현재, 미래의 경계를 허물며 부드럽게 전환되는 하늘의 색채는 관객으로 하여금 찰나의 순간(Ephemeral moment)을 마주하게 만든다. 고정된 노을의 재현이 아닌, 매 순간 새롭게 탄생하고 소멸하는 디지털적 시공간의 순환을 시각화한 것이다.</p>
+                    
+                    <h3>2. 자연적 리듬의 기하학적 키네틱 아트 (Kinetic Art)</h3>
+                    <p>화면 내부의 오브제들은 수학적 질서 속에서 유기적인 생명력을 얻는다.<br>
+                    <strong>• 파도와 태양의 호흡:</strong> <code>cos()</code>와 <code>sin()</code> 파형에 의해 일렁이는 하얀 파도의 선형적 움직임, 그리고 이에 맞춰 팽창과 수축을 반복하는 태양의 크기 변화는 화면 전체에 거대한 '자연의 호흡'을 부여한다.<br>
+                    <strong>• 배의 피칭(Pitching)과 갈매기의 궤적:</strong> 축을 따라 부드럽게 흔들리는(Bobbing) 돛단배는 거친 파도와 대비되는 아늑한 리듬을 형성하며, 화면 좌측에서 우측으로 끊임없이 스쳐 지나가는 갈매기들의 운동성은 공간에 무한한 확장성과 개방감을 유도한다.</p>
+                    
+                    <h3>3. 추상적 파편들의 군무(Group Dance)와 가상 세계의 물리</h3>
+                    <p>작가가 의도적으로 조형한 하단의 추상적 도상들 역시 동적인 생동감을 입으며 회화적 긴장감을 극대화한다. 고정되어 있던 주황빛 원은 미세하게 호흡하듯 크기가 변하고, 사각형과 다각형의 파편들은 서로 다른 삼각함수의 주기(<code>sin</code>, <code>cos</code>)를 가지며 비동기적으로 흔들린다. 오른쪽 하단에서 물방울처럼 부유하는 세 개의 작은 원은 배열(Array)과 반복문(for)을 통해 제각각 다른 시차를 두고 수직 운동을 한다. 이는 자연계의 물리 법칙을 모방하면서도, 동시에 오직 코딩 세계 안에서만 존재하는 가상의 역학 관계를 위트 있게 보여주는 장치이다.</p>
+                    
+                    <blockquote class="curator-note">
+                        <strong>큐레이터 노트 (Curator's Note)</strong><br>
+                        &lt;이스케이프 II&gt;는 정적인 구상 풍경하고 추상적 면의 결합을 넘어, '움직임(Motion)'이라는 시각 언어를 통해 현대 미디어 아트의 본질을 관통하는 작품입니다. 관객이 키보드의 'S' 키를 누르는 순간 가상의 5초가 박제되어 저장되는 인터랙티브 요소는, 흐르는 시간의 일부를 소유하려는 인간의 욕망을 투영합니다. 작가는 계산된 코드와 무작위성(Random)의 조화를 통해, <strong>단 한 순간도 동일하게 멈춰있지 않은 '살아 숨 쉬는 가상의 바다'</strong>를 성공적으로 구축해 냈습니다.
+                    </blockquote>
+                </div>
+            </details>
+        </div>
+        
+        <div class="project-card">
+            <div class="art-header-info">
+                <h2 class="art-title">자화상 (Self-Portrait)</h2>
+                <p class="art-spec">디지털 캔버스 위 코딩 (p5.js) / 600×400 px / 정적 조형</p>
+            </div>
+            
+            <iframe src="task2/index.html" title="과제 2"></iframe>
+            
+            <details class="project-desc">
+                <summary>Curator's Commentary (작품 해설)</summary>
+                <div class="desc-content notation-style">
+                    <p class="art-subtitle">"기하학적 조형으로 환원된 25년의 연대기, 그리고 실존의 흔적"</p>
+                    
+                    <h3>1. 평면화된 형태 속에서 드러나는 실존적 정체성</h3>
+                    <p>작가는 600×400이라는 제한된 디지털 스페이스 안에서 선(Line)과 면(Plane), 그리고 수치화된 좌표만을 이용하여 자신의 존재를 엄격하게 시각화한다. 화면 중심에 자리한 인물은 정형화된 미의 기준을 따르지 않는다. 오히려 비대칭과 불완전함을 있는 그대로 수용함으로써 강렬한 실존주의적 태도를 드러낸다. 화면을 지배하는 짙은 갈색의 헤어 아키텍처는 작가가 무려 25년이라는 긴 시간 동안 고수해 온 댄디컷의 형상이다. 이는 단순한 스타일의 재현을 넘어, 급변하는 현대 사회 속에서 자신만의 고유한 정체성과 신념을 완고하게 지켜온 '시간의 지속성'에 대한 선언적 플롯이다.</p>
+                    
+                    <h3>2. 비대칭의 미학과 세월의 메타포 (Metaphor)</h3>
+                    <p>이 작품의 가장 흥미로운 시각적 지점은 '짝눈'과 '새치'의 묘사에 있다. 의도적으로 비대칭으로 설계된 안구의 크기와 한쪽에만 미세하게 그어진 쌍꺼풀의 궤적은 인간이 가진 본연의 불완전함을 정직하게 대면하게 만든다. 특히, 짙은 밤색의 머리칼을 가로지르는 날카로운 백색의 선들은 '끊임없이 자라는 새치'를 상징한다. 작가는 감추고 싶은 노화나 스트레스의 흔적을 숨기지 않고, 오히려 빛나는 백색의 선으로 과감하게 병치(Juxtaposition)시켰다. 이는 삶의 무게와 세월의 궤적을 예술적 훈장으로 승화시키는 위트이자, 흐르는 시간을 박제하는 회화적 장치이다.</p>
+                    
+                    <h3>3. 색채와 양감이 주는 심리적 안정감</h3>
+                    <p>작가의 내면을 대변하는 캔버스의 지배적 색채는 따뜻한 피부색(FFE0BD)과 작가가 가장 애착을 느끼는 브라운 톤(#BFA28C)의 의복이다. 작가에게 이 색채들은 외부 세계로부터 스스로를 보호하는 심리적 방어선이자 가장 편안한 상태의 자아를 뜻한다. 하단부의 우람한 광대뼈의 곡선과 묵직하게 자리 잡은 코, 그리고 두꺼운 질감으로 표현된 입술의 양감(Volume)은 인물의 내면에 깃든 단단한 고집과 묵묵한 신뢰감을 시각적으로 뒷받침한다.</p>
+                    
+                    <blockquote class="curator-note">
+                        <strong>큐레이터 노트 (Curator's Note)</strong><br>
+                        디지털 코딩이라는 차가운 매체를 사용했음에도 불구하고, 본 자화상이 뜨거운 인간미를 획득하는 이유는 '나'를 구성하는 해부학적 특징들을 가장 솔직하게 고백하고 있기 때문이다. 25년의 세월이 담긴 머리 모양, 짝눈, 그리고 끊임없이 자라나는 새치까지. 작가는 완벽하게 다듬어진 가상의 아바타 대신, 세월과 치열하게 호흡하며 살아온 '진짜 나의 역사'를 담담하게 선언하고 있다.
+                    </blockquote>
+                </div>
+            </details>
+        </div>
+        
+        <div class="project-card">
+            <div class="art-header-info">
+                <h2 class="art-title">자화상 II (Self-Portrait II : 유동하는 자아)</h2>
+                <p class="art-spec">디지털 캔버스 위 인터랙티브 코딩 (p5.js) / 600×400 px / 가변 애니메이션</p>
+            </div>
+            
+            <iframe src="task3/index.html" title="과제 3"></iframe>
+            
+            <details class="project-desc">
+                <summary>Curator's Commentary (작품 해설)</summary>
+                <div class="desc-content notation-style">
+                    <p class="art-subtitle">"가변적 자아와 관객의 조응: 코드화된 신체성과 상호작용"</p>
+                    
+                    <h3>1. 관음(Viewing)에서 참여(Interaction)로의 전환</h3>
+                    <p>본 작품은 고정된 자화상의 개념을 탈피하여, 관객과의 실시간 상호작용을 통해 비로소 완결되는 디지털 키네틱 미디어 아트이다. 화면 속 인물의 눈동자는 마우스 좌표(mouseX, mouseY)의 변화를 기민하게 추적하며 실시간으로 시선을 이동한다. 이는 감상자와 작품 속 텍스트 간의 물리적 주객 관계를 뒤흔든다. 관객이 자화상을 바라보는 동시에, 자화상 역시 관객을 인지하고 끊임없이 응시하는 상호 주체적(Inter-subjective)인 경험을 선사하는 것이다.</p>
+                    
+                    <h3>2. 입력된 키(Key)를 통한 감정의 레이어와 기호학적 변이</h3>
+                    <p>작가는 자화상의 외형적 요소를 고정하지 않고, 관객이 입력하는 키보드와 마우스 이벤트를 통해 외형과 감정의 상태를 시각적으로 분출시킨다.<br><br>
+                    <strong>• 염색을 통한 정체성의 확장 (방향키 및 스페이스바):</strong> 25년간 고수해 온 짙은 갈색의 헤어 스타일은 방향키 조작에 따라 붉은색, 녹색, 청록색 등 과감한 원색조로 순식간에 탈바꿈한다. 이는 시간의 축적에 갇혀있던 자아를 확장하고, 고착화된 정체성을 가변적인 상태로 해방하려는 유희적 시도이다. 스페이스바는 이 모든 일탈을 다시 본연의 실존적 자아(#281E14)로 되돌리는 복원의 키로 기능한다.<br><br>
+                    <strong>• 정동(Affect)의 표출 (A, M 키 및 마우스 클릭):</strong> 관객이 'A'와 'M' 키를 입력함에 따라 눈과 입은 사랑을 갈구하는 '하트(Heart)'라는 기호적 도상으로 전이된다. 반면, 마우스를 클릭하는 순간 양쪽 눈은 단호하게 윙크(Wink) 혹은 감은 눈의 형태(line)로 평면화된다. 이는 현대인이 디지털 세계 속에서 아바타를 통해 감정을 과장하거나 은폐하는 방식에 대한 메타포이기도 하다.</p>
+                    
+                    <h3>3. 시스템 오류의 극복과 포용적 인터페이스</h3>
+                    <p>작품의 기술적 구조에서 주목해야 할 점은 입력 인터페이스의 세밀한 보정이다. 한국어 입력 환경('ㅁ', 'ㅡ', 'ㅎ')에서 발생할 수 있는 키 입력 누락 오류를 코드 레벨에서 선제적으로 통합 설계했다. 이는 디지털 아트가 직면하기 쉬운 시스템적 단절을 막고, 관객이 몰입을 깨지 않은 채 작품과 대화할 수 있도록 배려한 인간 중심적 인터페이스 디자인의 실천이다.</p>
+                    
+                    <blockquote class="curator-note">
+                        <strong>큐레이터 노트 (Curator's Note)</strong><br>
+                        &lt;자화상 II&gt;는 '나'라는 주관적 존재가 타인(관객)의 개입을 통해 어떻게 다채롭게 변주될 수 있는지를 탐구한 수작입니다. 굳건한 눈썹과 새치, 댄디컷으로 정의된 과거의 완고했던 자아는, 관객의 손끝에 따라 윙크를 하고, 머리색을 바꾸며, 거대한 하트를 뿜어내는 가변적 미디엄으로 거듭납니다. 키보드의 'G' 키를 통해 이 찰나의 상호작용을 10초짜리 GIF라는 디지털 포맷으로 박제할 수 있게 한 설정은, 가상 세계 속에서 끊임없이 변모하는 현대인의 유동적 자아를 소장 가능한 형태로 재탄생시키는 현대 예술의 영리한 종착지입니다.
+                    </blockquote>
+                </div>
+            </details>
+        </div>
+        
     </main>
+
+    <div id="artModal" class="museum-modal" onclick="closeArtwork()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="close-btn" onclick="closeArtwork()">&times;</span>
+            <div id="modalHeaderInfo" class="art-header-info"></div>
+            <iframe id="modalIframe" src="" title="전체 화면 작품"></iframe>
+        </div>
+    </div>
+
+    <script>
+        function openArtwork(cardElement) {
+            const modal = document.getElementById('artModal');
+            const modalIframe = document.getElementById('modalIframe');
+            const modalHeaderInfo = document.getElementById('modalHeaderInfo');
+            
+            const titleInfo = cardElement.querySelector('.art-header-info').innerHTML;
+            const iframeSrc = cardElement.querySelector('iframe').src;
+            
+            modalHeaderInfo.innerHTML = titleInfo;
+            modalIframe.src = iframeSrc;
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeArtwork() {
+            const modal = document.getElementById('artModal');
+            const modalIframe = document.getElementById('modalIframe');
+            
+            modal.classList.remove('show');
+            modalIframe.src = ''; 
+            document.body.style.overflow = 'auto'; 
+        }
+        
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.setAttribute('onclick', 'openArtwork(this)');
+            
+            const desc = card.querySelector('.project-desc');
+            if(desc) {
+                desc.addEventListener('click', (e) => e.stopPropagation());
+            }
+        });
+
+        // 다크모드 ON/OFF 처리 인터랙션 스크립트
+        function toggleDarkMode() {
+            const body = document.body;
+            const btn = document.getElementById('themeToggleBtn');
+            
+            body.classList.toggle('dark-mode');
+            
+            if(body.classList.contains('dark-mode')) {
+                btn.innerText = "☀️ LIGHTS ON";
+            } else {
+                btn.innerText = "🌓 LIGHTS OUT";
+            }
+        }
+    </script>
 </body>
-</html>
+</html> 
