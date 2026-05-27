@@ -240,11 +240,7 @@ iframe {
     font-size: 0.85rem !important;
     line-height: 1.75 !important;
     color: #515154 !important;
-    
-    /* [수정] 양쪽 정렬을 하되, 빈칸이 크게 안 생기도록 글자 단위 정렬 추가 */
-    text-align: justify !important; 
-    text-justify: inter-character !important; 
-    word-break: break-all !important; /* 단어가 줄바꿈될 때 쪼개지도록 처리 */
+    text-align: justify;
 }
 
 .curator-note strong {
@@ -402,11 +398,7 @@ body.dark-mode .curator-note {
     font-size: 0.85rem !important;
     line-height: 1.75 !important;
     color: #515154 !important;
-    
-    /* [수정] 양쪽 정렬을 하되, 빈칸이 크게 안 생기도록 글자 단위 정렬 추가 */
-    text-align: justify !important; 
-    text-justify: inter-character !important; 
-    word-break: break-all !important; /* 단어가 줄바꿈될 때 쪼개지도록 처리 */
+    text-align: justify;
 }
 body.dark-mode .curator-note strong { 
     color: #ffffff !important;
