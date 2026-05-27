@@ -1,16 +1,17 @@
-/* 1. body 부분 수정 */
+
 body {
     font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
-    background-color: #f5f5f7; 
+    
+    /* 위쪽은 차분한 안개 낀 베이지 톤, 아래쪽은 깔끔한 연회색으로 떨어지는 세로 그라데이션 */
+    background: linear-gradient(to bottom, #e8e4dc 0%, #f5f5f7 400px, #f5f5f7 100%);
+    
     color: #333;
     margin: 0;
-    padding: 30px;
+    padding: 50px 20px;
     display: flex;
     flex-direction: column;
-    align-items: center;      /* 세로축 기준 중앙 정렬 */
-    justify-content: center;  /* 필요 시 가로축 내용 전체 중앙 정렬 */
+    align-items: center;
 }
-
 header {
     text-align: center;
     margin-bottom: 40px;
@@ -22,27 +23,47 @@ header h1 {
 }
 
 /* 핵심 요구사항: 2행 2열 그리드 레이아웃 */
-/* 2. .grid-container 부분 수정 */
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(2, 640px); /* 600px 카드 + 20px 패딩 고려하여 고정 너비 지정 */
-    gap: 30px; 
-    margin: 0 auto; /* [치트키] 위아래 여백은 0, 좌우 여백은 자동으로 똑같이 나눠 가져 중앙 정렬 */
-    width: max-content; /* 내용물 크기만큼만 딱 구역을 잡음 */
+    grid-template-columns: 1fr 1fr; /* 2열로 나누기 */
+    gap: 30px; /* 각 과제 사이의 여백 */
+    width: 100%;
+    max-width: 1100px;
 }
 
 /* 심미성 추가: 각 과제를 담는 카드 디자인 (둥근 모서리, 그림자) */
+/* style.css 파일의 카드 관련 설정을 아래 코드로 변경하세요 */
+
+/* 개별 작품 카드 기본 상태 */
 .project-card {
-    background-color: white;
+    background-color: #ffffff;
     padding: 20px;
-    border-radius: 16px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08); /* 부드러운 그림자 효과 */
-    transition: transform 0.2s ease;
+    border-radius: 16px; /* 둥근 모서리 */
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    
+    /* [기본 그림자] 평소에는 은은하고 차분한 음영 */
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04); 
+    
+    /* [핵심] 마우스 아웃 시에도 0.3초 동안 매끄럽고 부드럽게 원래 크기로 돌아오도록 설정 */
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
+    
+    /* 마우스 커서가 올라가면 클릭할 수 있는 포인터로 변경 */
+    cursor: pointer; 
 }
 
-/* 마우스를 올렸을 때 살짝 떠오르는 효과 */
+/* [핵심 요청] 마우스 커서가 올라갔을 때(Hover)의 역동적인 효과 */
 .project-card:hover {
-    transform: translateY(-5px);
+    /* 1. 원래 크기보다 2.5% 확대(scale)하면서, 위쪽(Y축)으로 8px 이동(translate) */
+    transform: translateY(-8px) scale(1.025);
+    
+    /* 2. 카드가 공중에 붕 떠오른 느낌을 주도록 그림자를 더 넓고 짙게 확산 */
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12);
+    
+    /* 3. 테두리에 아주 미세한 포인트를 주어 세련미 추가 (선택 사항) */
+    background-color: #ffffff; 
 }
 
 .project-card h2 {
@@ -55,120 +76,324 @@ header h1 {
 }
 
 /* 캔버스가 표시되는 iframe 스타일 */
-.project-card {
-    background-color: white;
-    padding: 20px;
-    border-radius: 16px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
-    transition: transform 0.2s ease;
-    
-    /* 카드 안의 제목과 iframe을 세로로 정렬하고 가운데로 맞춤 */
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-}
-
-/* 캔버스(600x400) 비율에 완벽하게 맞추는 iframe 설정 */
 iframe {
-    width: 600px;  /* 캔버스 가로 크기에 고정 */
-    height: 400px; /* 캔버스 세로 크기에 고정 */
+    width: 100%;
+    height: 400px; /* 캔버스 높이에 맞춰 이 숫자를 조절하세요 (예: 400px, 500px) */
     border: none;
     border-radius: 8px;
     background-color: #fafafa;
-    
-    /* 혹시 모를 내부 스크롤바 숨기기 */
-    overflow: hidden; 
-}
-
-/* 맥북이나 모니터 화면이 작을 때 iframe이 옆으로 터져나가지 않도록 방지 */
-@media (max-width: 1300px) {
-    .grid-container {
-        grid-template-columns: 1fr; /* 화면이 좁아지면 1열로 정렬 */
-    }
 }
 
 /* style.css 맨 밑에 추가하세요 */
 
-/* 설명 토글 전체 스타일 */
-.project-desc {
-    width: 600px; /* iframe 가로폭과 일치시켜 깔끔하게 정렬 */
-    margin-top: 15px;
-    border: 1px solid #e5e5e7;
-    border-radius: 10px;
-    background-color: #fafafa;
-    overflow: hidden;
-    transition: all 0.3s ease;
-}
-
-/* '작품 설명 보기' 버튼 스타일 */
-.project-desc summary {
-    padding: 12px 20px;
-    font-weight: 600;
-    color: #0071e3; /* 애플 스타일 블루 포인트 컬러 */
-    cursor: pointer;
-    outline: none;
-    user-select: none;
-    list-style: none; /* 기본 화살표 숨기기 (브라우저 호환용) */
+/* 전체 화면을 어둡게 덮는 암전 효과 레이어 */
+.museum-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(28, 26, 23, 0.85); /* 묵직한 전시장 암전 톤 */
+    z-index: 9999;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* 요소를 클릭했을 때 배경색이 살짝 바뀌는 효과 */
-.project-desc summary:hover {
-    background-color: #f0f0f2;
+/* 활성화 상태 */
+.museum-modal.show {
+    opacity: 1;
+    pointer-events: auto;
 }
 
-/* 화살표 가상 요소 추가 */
-.project-desc summary::after {
-    content: '▼';
-    font-size: 0.8rem;
+/* 화면을 꽉 채우는 대형 흰색 액자 */
+.modal-content {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.3);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    /* 등장할 때 밑에서 위로 부드럽게 솟아오르는 효과 */
+    transform: translateY(30px) scale(0.95);
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.museum-modal.show .modal-content {
+    transform: translateY(0) scale(1);
+}
+
+/* 닫기 버튼 (X) */
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 2rem;
     color: #86868b;
-    transition: transform 0.2s ease;
+    cursor: pointer;
+    transition: color 0.2s;
 }
 
-/* 열렸을 때 화살표 회전 효과 */
-.project-desc[open] summary::after {
-    transform: rotate(180deg);
-}
-
-/* 펼쳐지는 내부 컨텐츠 스타일 */
-.desc-content {
-    padding: 20px;
-    border-top: 1px solid #e5e5e7;
-    background-color: white;
-    text-align: left; /* 설명글은 좌측 정렬이 가독성에 좋습니다 */
-}
-
-.desc-content h3 {
-    font-size: 1rem;
-    margin-top: 15px;
-    margin-bottom: 8px;
+.close-btn:hover {
     color: #1d1d1f;
 }
 
-.desc-content h3:first-child {
-    margin-top: 0;
+/* 전체 화면 안에서의 대형 모니터 맞춤형 캔버스 크기 */
+.modal-content iframe {
+    width: 850px;  /* 대형 스크린에 맞춰 확대된 크기 설정 */
+    height: 566px; /* 3:2 비율 유지 */
+    border-radius: 12px;
+    border: 1px solid #e5e5e7;
 }
 
-.desc-content ul {
-    margin: 0;
-    padding-left: 20px;
+/* 모달 전용 상단 타이틀 너비 보정 */
+.modal-content .art-header-info {
+    width: 850px;
+    margin-bottom: 20px;
 }
 
-.desc-content li {
-    font-size: 0.9rem;
-    line-height: 1.6;
-    color: #515154;
-    margin-bottom: 6px;
+/* style.css 맨 아래에 그냥 붙여넣으세요 */
+
+/* 사이트 로드 시 그리드 컨텐츠 전체가 부드럽게 등장 */
+.grid-container {
+    animation: fadeUpExhibition 1s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
 }
 
-/* 코드 강조 스타일 */
+@keyframes fadeUpExhibition {
+    from {
+        opacity: 0;
+        transform: translateY(20px); /* 아래에서 20px 밑에서 출발 */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* style.css 맨 아래에 복사해서 붙여넣으세요! */
+
+/* 1. 작품 해설(details) 상자 자체를 더 슬림하고 모던하게 */
+.project-desc {
+    border: none !important; /* 투박한 테두리선 제거 */
+    border-top: 1px solid #e5e5e7 !important; /* 상단에만 얇은 경계선 */
+    background-color: transparent !important; /* 회색 배경을 투명하게 하여 카드와 일치 */
+    margin-top: 25px !important;
+}
+
+/* 2. 토글 버튼(summary) 디자인 고급화 */
+.project-desc summary {
+    padding: 15px 0 !important; /* 좌우 여백을 없애고 텍스트 라인과 맞춤 */
+    font-size: 0.88rem !important;
+    font-weight: 700 !important;
+    color: #86868b !important; /* 튀는 블루 대신 차분한 갤러리 그레이 */
+    letter-spacing: 1px;
+    background-color: transparent !important;
+    transition: color 0.2s ease;
+}
+
+.project-desc summary:hover {
+    color: #1d1d1f !important; /* 마우스 올리면 선명해지도록 */
+    background-color: transparent !important;
+}
+
+/* 3. 펼쳐지는 본문 영역의 여백과 폰트 가독성 극대화 */
+.desc-content {
+    padding: 30px 5px 10px 5px !important; /* 내부 여백을 넓혀 시각적 답답함 해소 */
+    border-top: 1px solid #f5f5f7 !important;
+}
+
+/* 4. 부제목("구상과 추상의 경계...") 디자인 */
+.art-subtitle {
+    font-family: 'Apple SD Gothic Neo', sans-serif;
+    font-size: 1.15rem !important;
+    font-weight: 300 !important; /* 얇고 감성적인 서체 두께 */
+    color: #1d1d1f !important;
+    line-height: 1.5;
+    margin-bottom: 35px !important;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+/* 부제목 아래에 세련된 포인트 미니 하이라이트 선 추가 */
+.art-subtitle::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 1.5px;
+    background-color: #1d1d1f;
+}
+
+/* 5. 1, 2, 3 소제목 스타일 고도화 */
+.notation-style h3 {
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    color: #1d1d1f !important;
+    margin-top: 35px !important;
+    margin-bottom: 10px !important;
+    letter-spacing: -0.3px;
+}
+
+/* 6. 설명 줄글 스타일 (가장 중요) */
+.notation-style p {
+    font-size: 0.9rem !important;
+    line-height: 1.8 !important; /* 행간을 넓혀 도록 특유의 여백미 생성 */
+    color: #515154 !important;
+    text-align: justify !important; /* 좌우 정렬을 칼같이 맞춰 깔끔하게 배치 */
+    margin-bottom: 20px !important;
+}
+
+/* 줄글 안의 강조 항목(• 염색을 통한...) 선명하게 강조 */
+.notation-style p strong {
+    color: #1d1d1f !important;
+    font-weight: 700;
+}
+
+/* 7. 코드 블록(mouseX 등)을 테크니컬하고 감각적인 라벨로 변경 */
 .desc-content code {
-    background-color: #f5f5f7;
-    padding: 2px 5px;
-    border-radius: 4px;
-    font-family: inherit;
-    font-size: 0.85rem;
-    color: #bf4800;
+    background-color: #f5f5f7 !important;
+    color: #0071e3 !important; /* 주황색 대신 세련된 포인트 블루 */
+    padding: 3px 6px !important;
+    border-radius: 4px !important;
+    font-size: 0.82rem !important;
+    font-family: 'SF Pro Text', monospace !important;
+    font-weight: 500;
+}
+
+/* 8. 큐레이터 노트(Curator's Note) 블록을 진짜 액자처럼 격상 */
+.curator-note {
+    margin-top: 40px !important;
+    padding
+
+.exhibition-category {
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 800 !important;
+    font-size: 0.75rem !important;
+    letter-spacing: 3px !important;
+    color: #1d1d1f !important;
+}
+.museum-header h1 {
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 2.6rem !important;
+}
+.art-title::before {
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 700 !important;
+    color: #86868b !important;
+}
+.art-header-info::after {
+    font-family: 'Poppins', sans-serif !important;
+    content: '>> VIEW FULL' !important;
+}
+
+/* style.css 맨 아래에 이어서 붙여넣으세요! */
+
+/* ==================== 7. 다크모드 버튼 및 토글 스타일 ==================== */
+/* 우측 상단 플로팅 버튼 배치 */
+.theme-toggle-container {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    z-index: 1000;
+}
+
+#themeToggleBtn {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 10px 18px;
+    border-radius: 30px;
+    border: 1px solid #1d1d1f;
+    background-color: #1d1d1f;
+    color: #ffffff;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+#themeToggleBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+/* ==================== 8. [★대반전★] 다크모드 활성화 시 색상 데이터셋 ==================== */
+/* body에 .dark-mode 클래스가 붙으면 아래 전시장 소등 효과가 매끄럽게 발동합니다 */
+body, body.dark-mode {
+    transition: background 0.5s ease, color 0.5s ease; /* 조명이 서서히 꺼지는 효과 */
+}
+
+body.dark-mode {
+    background: #111112 !important; /* 완전한 전시장 암전 블랙 배경 */
+    color: #f5f5f7 !important;
+}
+
+/* 다크모드일 때 버튼 스스로 디자인 변경 */
+body.dark-mode #themeToggleBtn {
+    background-color: #ffffff;
+    color: #1d1d1f;
+    border: 1px solid #ffffff;
+}
+
+/* 상단 텍스트 색상 대칭 반전 */
+body.dark-mode .museum-header h1 {
+    color: #ffffff !important;
+}
+body.dark-mode .exhibition-sub {
+    color: #aeaeaf !important;
+}
+
+/* 작품 전시대 카드 다크화 */
+body.dark-mode .project-card {
+    background-color: #1c1c1e !important; /* 시크한 흑연색 카드 구조 */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important; /* 그림자를 대형 암전용으로 변경 */
+}
+
+body.dark-mode .art-title {
+    color: #ffffff !important;
+}
+body.dark-mode .art-header-info {
+    border-bottom: 1px solid #2c2c2e !important;
+}
+
+/* 아코디언 평론 설명 구역 색상 변경 */
+body.dark-mode .project-desc {
+    border-top: 1px solid #2c2c2e !important;
+}
+body.dark-mode .desc-content {
+    border-top: 1px solid #2c2c2e !important;
+}
+body.dark-mode .art-subtitle {
+    color: #ffffff !important;
+}
+body.dark-mode .art-subtitle::after {
+    background-color: #ffffff !important;
+}
+body.dark-mode .notation-style h3 {
+    color: #ffffff !important;
+}
+body.dark-mode .notation-style p {
+    color: #aeaeaf !important; /* 가독성을 위한 부드러운 은회색 */
+}
+body.dark-mode .notation-style p strong {
+    color: #ffffff !important;
+}
+
+/* 큐레이터 비평 박스 변경 */
+body.dark-mode .curator-note {
+    background-color: #2c2c2e !important;
+    border-left: 3px solid #ff9500 !important; /* 다크모드에서는 오렌지 포인트 라인으로 반전 */
+    color: #e5e5e7 !important;
+}
+body.dark-mode .curator-note strong {
+    color: #ffffff !important;
 }
