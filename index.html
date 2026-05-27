@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* 버튼 위치 및 스타일 디자인 고정 */
         .theme-toggle-container {
             position: fixed !important;
             top: 25px !important;
@@ -37,52 +36,11 @@
             box-shadow: 0 8px 20px rgba(0,0,0,0.25) !important;
         }
 
-        /* ==================== [★핵심] 다크모드 발동 시 색상 강제 제어 시스템 ==================== */
-        body, body.dark-mode {
-            transition: background 0.5s ease-in-out, color 0.5s ease-in-out !important;
-        }
-
-        /* 1. 전체 배경 암전 */
-        body.dark-mode {
-            background: #111112 !important; 
-            color: #f5f5f7 !important;
-        }
-
-        /* 2. 다크모드 시 버튼 색상 반전 */
         body.dark-mode #themeToggleBtn {
             background-color: #ffffff !important;
             color: #1d1d1f !important;
             border: 1px solid #ffffff !important;
         }
-
-        /* 3. 대제목 및 소제목 색상 반전 */
-        body.dark-mode .museum-header h1 { color: #ffffff !important; }
-        body.dark-mode .exhibition-sub { color: #aeaeaf !important; }
-        body.dark-mode .art-title { color: #ffffff !important; }
-        body.dark-mode .art-subtitle { color: #ffffff !important; }
-        body.dark-mode .art-subtitle::after { background-color: #ffffff !important; }
-        body.dark-mode .notation-style h3 { color: #ffffff !important; }
-
-        /* 4. 작품 카드 짙은 흑연색으로 변환 */
-        body.dark-mode .project-card {
-            background-color: #1c1c1e !important;
-            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6) !important;
-        }
-        body.dark-mode .art-header-info { border-bottom: 1px solid #2c2c2e !important; }
-
-        /* 5. 아코디언 설명문 내부 다크화 */
-        body.dark-mode .project-desc { border-top: 1px solid #2c2c2e !important; }
-        body.dark-mode .desc-content { border-top: 1px solid #2c2c2e !important; }
-        body.dark-mode .notation-style p { color: #aeaeaf !important; }
-        body.dark-mode .notation-style p strong { color: #ffffff !important; }
-
-        /* 6. 평론 박스 다크 웜그레이 테마 변경 */
-        body.dark-mode .curator-note {
-            background-color: #2c2c2e !important;
-            border-left: 3px solid #0071e3 !important; /* 다크모드 전용 세련된 블루 바 */
-            color: #e5e5e7 !important;
-        }
-        body.dark-mode .curator-note strong { color: #ffffff !important; }
     </style>
 </head>
 <body>
@@ -133,7 +91,7 @@
         <div class="project-card">
             <div class="art-header-info">
                 <h2 class="art-title">이스케이프 II (Escape II : 변이하는 시공간)</h2>
-                <p class="art-spec">디지털 캔버스 위 인터랙티브 코딩 (p5.js) / 600×400 px / 동적 애니메이션</p>
+                <p class="art-spec">디지털 캔버스 위 인터랙티브 코딩 (p5.js) / 600×400 px / 동적 루프 애니메이션</p>
             </div>
             
             <iframe src="task4/index.html" title="과제 4"></iframe>
@@ -149,10 +107,10 @@
                     <h3>2. 자연적 리듬의 기하학적 키네틱 아트 (Kinetic Art)</h3>
                     <p>화면 내부의 오브제들은 수학적 질서 속에서 유기적인 생명력을 얻는다.<br>
                     <strong>• 파도와 태양의 호흡:</strong> <code>cos()</code>와 <code>sin()</code> 파형에 의해 일렁이는 하얀 파도의 선형적 움직임, 그리고 이에 맞춰 팽창과 수축을 반복하는 태양의 크기 변화는 화면 전체에 거대한 '자연의 호흡'을 부여한다.<br>
-                    <strong>• 배의 피칭(Pitching)과 갈매기의 궤적:</strong> 축을 따라 부드럽게 흔들리는(Bobbing) 돛단배는 거친 파도와 대비되는 아늑한 리듬을 형성하며, 화면 좌측에서 우측으로 끊임없이 스쳐 지나가는 갈매기들의 운동성은 공간에 무한한 확장성과 개방감을 유도한다.</p>
+                    <strong>• 배의 피칭(Pitching)과 갈매기의 궤적:</strong> 축을 따라 부드럽게 흔들리는(Bobbing) 돛단배는 거친 파도와 대비되는 아늑한 리듬을 형성하며, 화면 좌측에서 우측으로 끊임없이 스쳐 지나가는 갈매기들의 운동성(<code>gullX</code>)은 공간에 무한한 확장성과 개방감을 유도한다.</p>
                     
                     <h3>3. 추상적 파편들의 군무(Group Dance)와 가상 세계의 물리</h3>
-                    <p>작가가 의도적으로 조형한 하단의 추상적 도상들 역시 동적인 생동감을 입으며 회화적 긴장감을 극대화한다. 고정되어 있던 주황빛 원은 미세하게 호흡하듯 크기가 변하고, 사각형과 다각형의 파편들은 서로 다른 삼각함수의 주기(<code>sin</code>, <code>cos</code>)를 가지며 비동기적으로 흔들린다. 오른쪽 하단에서 물방울처럼 부유하는 세 개의 작은 원은 배열(Array)과 반복문(for)을 통해 제각각 다른 시차를 두고 수직 운동을 한다. 이는 자연계의 물리 법칙을 모방하면서도, 동시에 오직 코딩 세계 안에서만 존재하는 가상의 역학 관계를 위트 있게 보여주는 장치이다.</p>
+                    <p>작가가 의도적으로 조형한 하단의 추상적 도상들 역시 동적인 생동감을 입으며 회화적 긴장감을 극대화한다. 고정되어 있던 주황빛 원은 미세하게 호흡하듯 크기가 변하고, 사각형과 다각형의 파편들은 서로 다른 삼각함수의 주기(<code>sin</code>, <code>cos</code>)를 가지며 비동기적으로 흔들린다. 오른쪽 하단에서 물방울처럼 부유하는 세 개의 작은 원(<code>cXs</code>, <code>cYs</code>)은 배열(Array)과 반복문(for)을 통해 제각각 다른 시차를 두고 수직 운동을 한다. 이는 자연계의 물리 법칙을 모방하면서도, 동시에 오직 코딩 세계 안에서만 존재하는 가상의 역학 관계를 위트 있게 보여주는 장치이다.</p>
                     
                     <blockquote class="curator-note">
                         <strong>큐레이터 노트 (Curator's Note)</strong><br>
@@ -230,7 +188,9 @@
         <div class="modal-content" onclick="event.stopPropagation()">
             <span class="close-btn" onclick="closeArtwork()">&times;</span>
             <div id="modalHeaderInfo" class="art-header-info"></div>
-            <iframe id="modalIframe" src="" title="전체 화면 작품"></iframe>
+            <div class="iframe-zoom-wrapper">
+                <iframe id="modalIframe" src="" title="전체 화면 작품"></iframe>
+            </div>
         </div>
     </div>
 
@@ -245,6 +205,33 @@
             
             modalHeaderInfo.innerHTML = titleInfo;
             modalIframe.src = iframeSrc;
+            
+            // [치트키] 팝업이 열릴 때 iframe 자체를 대형 규격으로 직접 리사이징하여 여백 증발 조치
+            modalIframe.style.width = "840px";
+            modalIframe.style.height = "560px";
+            
+            // iframe 내부 p5js 파일들이 꽉 차도록 주입 처리 스크립트 리스너 추가
+            modalIframe.onload = function() {
+                try {
+                    const iframeDoc = modalIframe.contentDocument || modalIframe.contentWindow.document;
+                    const canvas = iframeDoc.querySelector('canvas');
+                    if (canvas) {
+                        canvas.style.width = "100%";
+                        canvas.style.height = "100%";
+                        canvas.style.objectFit = "contain";
+                    }
+                    // 내부 바디 여백도 차단
+                    iframeDoc.body.style.margin = "0";
+                    iframeDoc.body.style.padding = "0";
+                    iframeDoc.body.style.display = "flex";
+                    iframeDoc.body.style.justifyContent = "center";
+                    iframeDoc.body.style.alignItems = "center";
+                    iframeDoc.body.style.backgroundColor = "transparent";
+                } catch(e) {
+                    console.log("Cross-origin 보정 활성화");
+                }
+            };
+
             modal.classList.add('show');
             document.body.style.overflow = 'hidden'; 
         }
@@ -267,7 +254,6 @@
             }
         });
 
-        // 다크모드 ON/OFF 처리 인터랙션 스크립트
         function toggleDarkMode() {
             const body = document.body;
             const btn = document.getElementById('themeToggleBtn');
@@ -282,4 +268,4 @@
         }
     </script>
 </body>
-</html> 
+</html>
